@@ -24,7 +24,6 @@ import shlex
 import re
 import json
 
-iface = 'wlan0'
 tools = [
     {
         'cmd': '/usr/bin/wicd-cli -y -S -l',
@@ -37,7 +36,7 @@ tools = [
         'order': ('ssid', 'mac_address', 'channel'),
     },
     {
-        'cmd': '/sbin/iwlist %s scan' % iface,
+        'cmd': '/sbin/iwlist scan',
         're': r'Cell \d+ - Address: ([\dA-F:]+)\s+Channel:(\d+)[^-]*Signal level=-\d+ dBm[^"]+ESSID:"([^"]+)"',
         'order': ('mac_address', 'channel', 'ssid'),
     },
