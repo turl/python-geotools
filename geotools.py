@@ -47,7 +47,7 @@ request = {
   'version': '1.1.0',
   'host': 'maps.google.com',
   'request_address': True,
-  'address_language': 'de_DE',
+  'address_language': 'en_US',
   'wifi_towers': [],
 }
 
