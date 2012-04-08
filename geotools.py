@@ -29,11 +29,18 @@ tools = [
     {
         'cmd': '/usr/bin/wicd-cli -y -S -l',
         're': r'\d+\t([\dA-F:]+)\t(\d+)\t([^ ]+)',
+        'order': ('mac_address', 'channel', 'ssid'),
+    },
+    {
+        'cmd': '/usr/bin/nm-tool',
+        're': r'\s+[*]?([^:)]+):\s+Infra, ([\dA-F:]+), Freq (\d+) MHz, Rate \d+ Mb/s, Strength \d+ (?:WEP)?(?:WPA)?(?: WPA2)?',
+        'order': ('ssid', 'mac_address', 'channel'),
     },
     {
         'cmd': '/sbin/iwlist %s scan' % iface,
         're': r'Cell \d+ - Address: ([\dA-F:]+)\s+Channel:(\d+)[^-]*Signal level=-\d+ dBm[^"]+ESSID:"([^"]+)"',
-    }
+        'order': ('mac_address', 'channel', 'ssid'),
+    },
 ]
 
 request = {
@@ -49,7 +56,7 @@ def get_wifis():
         try:
             cmdline = shlex.split(tool['cmd'])
             s = subprocess.check_output(cmdline).replace('\n', ' ')
-            wifis = [dict(zip(('mac_address', 'channel', 'ssid'), t))
+            wifis = [dict(zip(tool['order'], t))
                         for t in re.compile(tool['re']).findall(s)]
         except Exception as e:
             continue
