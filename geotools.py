@@ -79,5 +79,8 @@ def get_location(wifis):
 
 def print_location(loc):
     print '%(latitude)f, %(longitude)f (+-%(accuracy).1f)' % loc
-    print '%(street)s %(street_number)s, %(postal_code)s %(city)s, %(region)s, %(country)s (%(country_code)s)' % loc['address']
+    try:
+        print '%(street)s %(street_number)s, %(postal_code)s %(city)s, %(region)s, %(country)s (%(country_code)s)' % loc['address']
+    except:
+        print loc['address']
 
