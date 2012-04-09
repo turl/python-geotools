@@ -40,6 +40,11 @@ tools = [
         're': r'Cell \d+ - Address: ([\dA-F:]+)\s+Channel:(\d+)[^-]*Signal level=-\d+ dBm[^"]+ESSID:"([^"]+)"',
         'order': ('mac_address', 'channel', 'ssid'),
     },
+    { # Mac OS support
+        'cmd': '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -s',
+        're': r'\s+([^)\r\n]*?)\s([\da-fA-F:]+)\s+-\d+\s+(\d).*?(?:NONE|\).*?\)|\))',
+        'order': ('ssid', 'mac_address', 'channel')
+    },   
 ]
 
 request = {
