@@ -83,4 +83,6 @@ def print_location(loc):
         print '%(street)s %(street_number)s, %(postal_code)s %(city)s, %(region)s, %(country)s (%(country_code)s)' % loc['address']
     except:
         print loc['address']
+        
+    print 'https://maps.google.com/maps?q=%(latitude)f,%(longitude)f&z=19' % loc
 
